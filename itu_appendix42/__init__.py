@@ -5,6 +5,6 @@ Copyright (C) 2024 Martin J Levy - W6LHI/G8LHI - @mahtin - https://github.com/ma
 
 from .itu_appendix42 import ItuAppendix42
 
-__version__ = '0.4.3'
+__version__ = '0.4.4'
 
 __all__ = ['ItuAppendix42']
