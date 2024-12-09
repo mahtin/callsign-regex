@@ -18,8 +18,14 @@ from os.path import join, expanduser, getmtime
 from glob import glob
 from string import ascii_uppercase, digits
 
+try:
+    from importlib.resources import files
+except ImportError:
+    from importlib_resources import files
+
 from openpyxl import load_workbook
 
+from itu_appendix42.iso3661_mapping import iso3661_mapping
 from itu_appendix42.iso3661_mapping_from_itu import iso3661_mapping_from_itu
 
 class ItuAppendix42():
@@ -27,6 +33,7 @@ class ItuAppendix42():
 
     DOWNLOAD_FOLDER = 'Downloads'
     FILENAME_PATTERN = 'CallSignSeriesRanges-*-*-*-*.xlsx'
+    BUILTIN_RESOURCES = 'itu_appendix42.resources'
 
     _forward = None
     _reverse = None
@@ -88,20 +95,26 @@ class ItuAppendix42():
         ws = wb['Exported data']
         return ws
 
+    def _builtin_data_file(self):
+        """ _builtin_data_file """
+        return str(files(self.__class__.BUILTIN_RESOURCES)._paths[0])
+
     def _find_filename(self):
         """ _find_filename """
         dirname = join(expanduser('~'), self.__class__.DOWNLOAD_FOLDER)
         a = []
+
         #
         # Changed in version 3.10: Added the root_dir and dir_fd parameters.
-        # for filename in glob(self.__class__.FILENAME_PATTERN, root_dir=dirname):
+        # filenames = glob(self.__class__.FILENAME_PATTERN, root_dir=self._builtin_data_file()) + glob(self.__class__.FILENAME_PATTERN, root_dir=dirname)
         #
-        for filename in glob(dirname + '/' + self.__class__.FILENAME_PATTERN):
-            mtime = getmtime(join(dirname, filename))
+
+        for filename in glob(self._builtin_data_file() + '/' + self.__class__.FILENAME_PATTERN) + glob(dirname + '/' + self.__class__.FILENAME_PATTERN):
+            mtime = getmtime(filename)
             a.append((filename, mtime))
         l = sorted(a, key=lambda item: item[1])
-        a = l[-1]
-        filename = join(dirname, a[0])
+        best = l[-1]
+        filename = best[0]
         return filename
 
     def _build_forward(self, ws):
