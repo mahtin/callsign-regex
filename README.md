@@ -14,6 +14,13 @@ and download via the `.xlsx` button and produce a file like this:
 Your UUID part will be different.  This code looks for the newest file of that name pattern in your `Downloads` directory/folder, so don't worry about more than one file is downloaded.
 Under windows that's `C:\Users\YourUsername\Downloads\` and under Linux or MacOS it's `~/Downloads`.
 
+
+## Install
+
+```bash
+$ pip install itu-appendix42
+```
+
 ## Producing a rexex
 
 ```bash

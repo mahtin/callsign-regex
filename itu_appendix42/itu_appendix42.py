@@ -92,7 +92,11 @@ class ItuAppendix42():
         """ _find_filename """
         dirname = join(expanduser('~'), self.__class__.DOWNLOAD_FOLDER)
         a = []
-        for filename in glob(self.__class__.FILENAME_PATTERN, root_dir=dirname):
+        #
+        # Changed in version 3.10: Added the root_dir and dir_fd parameters.
+        # for filename in glob(self.__class__.FILENAME_PATTERN, root_dir=dirname):
+        #
+        for filename in glob(dirname + '/' + self.__class__.FILENAME_PATTERN):
             mtime = getmtime(join(dirname, filename))
             a.append((filename, mtime))
         l = sorted(a, key=lambda item: item[1])
