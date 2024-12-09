@@ -16,6 +16,8 @@ with open('README.md') as f:
 setup(
     name = 'callsign-regex',
     packages = ['itu_appendix42', 'callsign_regex'],
+    #package_dir = {'itu_appendix42': 'itu_appendix42'},
+    package_data = {'itu_appendix42': ['resources/*.xlsx']},
     version = version,
     license = 'OSI Approved :: MIT License',
     description = 'Match ham radio callsigns based on ITU appendix42',
@@ -27,10 +29,10 @@ setup(
     download_url = 'https://github.com/mahtin/callsign-regex/archive/refs/tags/%s.tar.gz' % version,
     keywords = ['Ham Radio', 'Callsign', 'ITU', 'Appendix42'],
     install_requires = ['openpyxl'],
-    options = {"bdist_wheel": {"universal": True}},
+    options = {'bdist_wheel': {'universal': True}},
     include_package_data = True,
     entry_points = {'console_scripts': ['callsign-regex=callsign_regex.__main__:main']},
-    python_requires=">=3.7",
+    python_requires='>=3.7',
 
     classifiers = [
         'Development Status :: 4 - Beta',
