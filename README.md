@@ -9,16 +9,15 @@ visit this page
 [https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/call_sign_series.aspx](https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/call_sign_series.aspx)
 and download via the `.xlsx` button and produce a file like this:
 ```
-     CallSignSeriesRanges-998049b7-c007-4e71-bac6-d2393eaa83ef.xlsx
-     CallSignSeriesRanges-c3ce6efb-d36c-4e44-8fff-083b4aab1c09.xlsx
+    CallSignSeriesRanges-959674f2-22a8-4eb5-aa67-9df4fd606158.xlsx
 ```
-This code looks for the newest file of that name pattern in your `Downloads` directory/folder.
+Your UUID part will be different.  This code looks for the newest file of that name pattern in your `Downloads` directory/folder, so don't worry about more than one file is downloaded.
 Under windows that's `C:\Users\YourUsername\Downloads\` and under Linux or MacOS it's `~/Downloads`.
 
 ## Producing a rexex
 
 ```bash
-$ python callsign-regex.py -R
+$ python callsign_regex.py -R
 ```
 
 The resulting output is the regex to match all ham radio callsigns:
