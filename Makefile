@@ -13,9 +13,24 @@ NAME_ = "callsign_regex"
 PACKAGE1 = "itu-appendix42"
 PACKAGE2 = "callsign_regex"
 
-all:
+all: CHANGELOG.md
 	${FORCE}
 
+CHANGELOG.md: FORCE
+	@tmp=/tmp/_$$$$.md ; \
+	( \
+		cp /dev/null $$tmp ; \
+		echo '# Change Log' ; \
+		echo '' ; \
+		git log --date=iso-local --pretty=format:' - %ci [%h](../../commit/%H) %s' ; \
+		echo '' ; \
+	)  >> $$tmp ; \
+	diff $$tmp CHANGELOG.md || ( cp $$tmp CHANGELOG.md ; echo "CHANGELOG.md - updated" ) ; \
+	rm $$tmp
+FORCE:
+
+build: setup.py
+	$(PYTHON) setup.py -q build
 lint:
 	${PYLINT} --unsafe-load-any-extension=y ${PACKAGE1}/*.py ${PACKAGE2}/*.py example1.py
 
@@ -23,8 +38,8 @@ clean:
 	rm -rf build dist
 	mkdir build dist
 	$(PYTHON) setup.py clean
-	rm -rf ${NAME}.egg-info
 	rm -rf build dist
+	rm -rf ${NAME_}.egg-info
 
 test: all
 	${FORCE}
@@ -35,12 +50,14 @@ sdist: all
 	$(PYTHON) setup.py sdist
 	@ v=`ls -t dist/${NAME}-*.tar.gz | head -1` ; w=`echo $$v | sed -e 's/-/_/'` ; echo mv $$v $$w ; mv $$v $$w 
 	@ v=`ls -t dist/${NAME_}-*.tar.gz | head -1` ; echo $(TWINE) check $$v ; $(TWINE) check $$v
-	@ rm -rf ${NAME}.egg-info build
+	@ rm -rf ${NAME_}.egg-info
 
 bdist: all
+	# make clean
+	# make test
 	${PIP} wheel . -w dist --no-deps
 	@ v=`ls -t dist/${NAME_}-*-py2.py3-none-any.whl | head -1` ; echo $(TWINE) check $$v ; $(TWINE) check $$v
-	@ rm -rf ${NAME_}.egg-info build
+	@ rm -rf ${NAME_}.egg-info
 
 showtag: sdist
 	@ v=`ls -t dist/${NAME_}-*.tar.gz | head -1 | sed -e "s/dist\/${NAME_}-//" -e 's/.tar.gz//'` ; echo "\tDIST VERSION =" $$v ; (git tag | fgrep -q "$$v") && echo "\tGIT TAG EXISTS"
