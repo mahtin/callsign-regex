@@ -10,13 +10,14 @@ TWINE = twine
 NAME = "callsign-regex"
 NAME_ = "callsign_regex"
 
-PACKAGE = "itu-appendix42"
+PACKAGE1 = "itu-appendix42"
+PACKAGE2 = "callsign_regex"
 
 all:
 	${FORCE}
 
 lint:
-	${PYLINT} --unsafe-load-any-extension=y ${PACKAGE}/*.py callsign-regex.py example1.py
+	${PYLINT} --unsafe-load-any-extension=y ${PACKAGE1}/*.py ${PACKAGE2}/*.py example1.py
 
 clean:
 	rm -rf build dist
