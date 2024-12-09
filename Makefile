@@ -7,20 +7,23 @@ PIP = pip
 PYLINT = pylint
 TWINE = twine
 
-NAME = "itu_appendix42"
-NAME_ = "itu_appendix42"
+NAME = "callsign-regex"
+NAME_ = "callsign_regex"
+
+PACKAGE = "itu-appendix42"
 
 all:
 	${FORCE}
 
 lint:
-	${PYLINT} --unsafe-load-any-extension=y ${NAME}/*.py callsign-regex.py example1.py
+	${PYLINT} --unsafe-load-any-extension=y ${PACKAGE}/*.py callsign-regex.py example1.py
 
 clean:
 	rm -rf build dist
 	mkdir build dist
 	$(PYTHON) setup.py clean
-	rm -rf ${NAME_}.egg-info
+	rm -rf ${NAME}.egg-info
+	rm -rf build dist
 
 test: all
 	${FORCE}
@@ -30,7 +33,7 @@ sdist: all
 	# make test
 	$(PYTHON) setup.py sdist
 	@ v=`ls -t dist/${NAME}-*.tar.gz | head -1` ; echo $(TWINE) check $$v ; $(TWINE) check $$v
-	@ rm -rf ${NAME_}.egg-info build
+	@ rm -rf ${NAME}.egg-info build
 
 bdist: all
 	${PIP} wheel . -w dist --no-deps
@@ -53,7 +56,6 @@ upload-pypi: sdist bdist
 	@ v=`ls -t dist/${NAME}-*.tar.gz | head -1` ; echo $(TWINE) check $$v ; $(TWINE) check $$v
 	@ v=`ls -t dist/${NAME_}-*-py2.py3-none-any.whl | head -1` ; echo $(TWINE) check $$v ; $(TWINE) check $$v
 	${TWINE} upload --repository ${NAME} `ls -t dist/${NAME}-*.tar.gz|head -1` `ls -t dist/${NAME_}-*-py2.py3-none-any.whl|head -1`
-
 
 docs: all
 	sphinx-apidoc -Mfe -o docs . setup.py

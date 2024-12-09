@@ -14,7 +14,7 @@ with open('README.md') as f:
     long_description = f.read()
 
 setup(
-    name = 'itu_appendix42',
+    name = 'callsign-regex',
     packages = ['itu_appendix42'],
     version = version,
     license = 'OSI Approved :: MIT License',
