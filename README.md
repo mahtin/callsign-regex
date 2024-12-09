@@ -1,30 +1,31 @@
 # callsign-regex
 Python code to build a current regex for all ham radio callsigns
 
-## Fetch the data files
-
-Based on the page 
-[https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/glad.aspx](https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/glad.aspx)
-visit this page
-[https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/call_sign_series.aspx](https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/call_sign_series.aspx)
-and download via the `.xlsx` button and produce a file like this:
-```
-    CallSignSeriesRanges-959674f2-22a8-4eb5-aa67-9df4fd606158.xlsx
-```
-Your UUID part will be different.  This code looks for the newest file of that name pattern in your `Downloads` directory/folder, so don't worry about more than one file is downloaded.
-Under windows that's `C:\Users\YourUsername\Downloads\` and under Linux or MacOS it's `~/Downloads`.
-
-
 ## Install
 
 ```bash
-$ pip install itu-appendix42
+$ pip install callsign-regex
 ```
+
+## Fetch the data files from the ITU (very important)
+
+Based on the page 
+[https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/glad.aspx](https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/glad.aspx)
+visit this page in a browser on your system
+[https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/call_sign_series.aspx](https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/call_sign_series.aspx)
+and download via the somewhat small `.xlsx` button. This produces a file like this in your Download directory/folder:
+```
+    CallSignSeriesRanges-959674f2-22a8-4eb5-aa67-9df4fd606158.xlsx
+```
+Your UUID part will be different.
+
+This package looks for the newest file of that name pattern in your `Downloads` directory/folder, so don't worry about more than one file is downloaded.
+Under windows that's `C:\Users\YourUsername\Downloads\` and under Linux or MacOS it's `~/Downloads`.
 
 ## Producing a rexex
 
 ```bash
-$ python callsign_regex.py -R
+$ callsign-regex -R
 ```
 
 The resulting output is the regex to match all ham radio callsigns:
@@ -58,4 +59,6 @@ for line in sys.stdin:
     else:
         print('%-10s INVALID' % (line))
 ```
+
+The file `example1.py` on github is this code.
 
