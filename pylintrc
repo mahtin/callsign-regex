@@ -1,0 +1,49 @@
+[MASTER]
+; load-plugins=pylint_mccabe
+load-plugins=
+    pylint.extensions.no_self_use,
+    pylint.extensions.bad_builtin
+
+[REPORTS]
+output-format=colorized
+
+[MESSAGES CONTROL]
+disable=
+    attribute-defined-outside-init,
+    duplicate-code,
+    fixme,
+    locally-disabled,
+    too-few-public-methods,
+    too-many-ancestors,
+    too-many-lines,
+    unused-argument,
+    consider-using-f-string,
+    RP0001,
+    RP0002,
+    RP0003,
+    RP0101,
+    RP0401,
+    RP0402,
+    RP0701,
+    RP0801,
+    W0311
+
+[DESIGN]
+max-attributes=12
+max-args=12
+max-statements=160
+max-branches=70
+max-locals=40
+max-nested-blocks=10
+
+[FORMAT]
+max-line-length=200
+
+[BASIC]
+function-rgx=[a-z_][a-z0-9_]{2,50}$|test_[a-zA-Z_][a-zA-Z0-9_]{2,100}$|setUp$|tearDown$
+method-rgx=[a-z_][a-z0-9_]{2,30}$|test_[a-zA-Z_][a-zA-Z0-9_]{2,100}$
+variable-rgx=[a-z_][a-z0-9_]{0,30}$|test_[a-zA-Z_][a-zA-Z0-9_]{2,100}$
+argument-rgx=[a-z_][a-z0-9_]{0,30}$|test_[a-zA-Z_][a-zA-Z0-9_]{2,100}$
+attr-rgx=[a-z_][a-z0-9_]{2,30}$|maxDiff$
+exclude-protected=_asdict,_fields,_replace,_source,_make,_meta
+no-docstring-rgx=^Meta$|^_
