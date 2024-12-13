@@ -1,0 +1,21 @@
+# Change Log
+
+ - 2024-12-09 13:54:03 -0800 [48838a0](../../commit/48838a035534c6819a591a79dd5b7990f37a0a31) sdist bdist needed some cleanup plus CHANGELOG added
+ - 2024-12-08 22:48:22 -0800 [ee4f583](../../commit/ee4f5838a30589e962c3be7acfdd24428dacdb6a) 0.4.4
+ - 2024-12-08 22:48:02 -0800 [2b11e6f](../../commit/2b11e6f1f2b9a2841b33bc4a97e1e0d5e557ccdf) dist names needed underscore
+ - 2024-12-08 22:19:55 -0800 [3a4041f](../../commit/3a4041f96de3858ca91e49cd4039d4d50af04b0f) 0.4.3
+ - 2024-12-08 22:19:35 -0800 [3f2c4fd](../../commit/3f2c4fd7bc599634d114d249671d9301dfee5e6d) more information added
+ - 2024-12-08 22:09:43 -0800 [2299374](../../commit/2299374014124b5d80751e81b1b56873b8a8ad73) now searches for a default file within the itu_appendix42/resources folder
+ - 2024-12-08 20:31:43 -0800 [17c361e](../../commit/17c361e77aadaf644b7f3c86d4f40d8ae8baaf7d) added a CallSignSeriesRanges file to prime the code
+ - 2024-12-08 19:31:45 -0800 [e708a17](../../commit/e708a17cdf5dfc5a4a38d34cac4d1c10ba47f7ba) more usage info
+ - 2024-12-08 19:31:10 -0800 [a36c8dc](../../commit/a36c8dc1ded3b1a8fa735a16474bd0507e843cea) usage added
+ - 2024-12-08 19:22:24 -0800 [24ee3f5](../../commit/24ee3f5953470c8000180c61730b17b3ef410c33) 0.3.0
+ - 2024-12-08 19:22:07 -0800 [a4b1356](../../commit/a4b1356ce9c07521b5695b1d0f244e93d7b727c7) moved to a new folder
+ - 2024-12-08 19:21:35 -0800 [08711e1](../../commit/08711e1dc8e28750438466e7e61199184f922ef3) callsign regex cli
+ - 2024-12-08 19:20:33 -0800 [c188c74](../../commit/c188c7493a9ceaceeac214e6df0600f96c892401) clearer instructions
+ - 2024-12-08 19:16:38 -0800 [ab21a7a](../../commit/ab21a7afafb2f0fa301120d6e3a07407652a0621) install now correct
+ - 2024-12-08 19:15:38 -0800 [bf45122](../../commit/bf451226560fbae7f7e71eefd119e96687b9bdf1) allow earlier versions of python than 3.10
+ - 2024-12-08 18:51:58 -0800 [d13ddab](../../commit/d13ddab2ca1138037b76d4fac47ef7188914f3fc) package name corrected
+ - 2024-12-08 18:10:16 -0800 [094fc9e](../../commit/094fc9e54bfe85c669a2e491df005b228fbbb8da) the usual minor updates
+ - 2024-12-08 18:04:46 -0800 [7bf9f42](../../commit/7bf9f427feda9b3ed7edd60cd4f4c6f4934693cf) Version 0.1.0 of code
+ - 2024-12-08 16:54:15 -0800 [ae11aec](../../commit/ae11aecfe3bc2f623a615d5b1efa4dc919cc436d) Initial commit

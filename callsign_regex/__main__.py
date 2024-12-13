@@ -8,9 +8,7 @@ from callsign_regex import callsign_regex
 
 def main(args=None):
     """ callsign-regex command line """
-    if args is None:
-        args = sys.argv[1:]
-    callsign_regex.callsign_regex(args)
+    callsign_regex.callsign_regex()
 
 if __name__ == '__main__':
     main()
