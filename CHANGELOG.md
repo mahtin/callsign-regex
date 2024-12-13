@@ -1,5 +1,6 @@
 # Change Log
 
+ - 2024-12-13 14:36:43 -0400 [3e44893](../../commit/3e44893efecb5fe9618603d225e5249aac937a45) handle Bermuda etc regex better (C6 etc), usage/arg processing, cache of regex for speedup, localized xlsx file, efficient processing
  - 2024-12-09 13:54:03 -0800 [48838a0](../../commit/48838a035534c6819a591a79dd5b7990f37a0a31) sdist bdist needed some cleanup plus CHANGELOG added
  - 2024-12-08 22:48:22 -0800 [ee4f583](../../commit/ee4f5838a30589e962c3be7acfdd24428dacdb6a) 0.4.4
  - 2024-12-08 22:48:02 -0800 [2b11e6f](../../commit/2b11e6f1f2b9a2841b33bc4a97e1e0d5e557ccdf) dist names needed underscore
