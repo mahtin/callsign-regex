@@ -83,7 +83,7 @@ docs: all
 #
 # Examples
 #
-examples: examples/clang-example examples/python-example.py
+examples: examples/clang-example examples/python_example.py
 
 clean-docs: all
 	rm -rf docs/*.rst docs/_build/

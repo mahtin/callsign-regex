@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """ python-example.py
 Copyright (C) 2024 Martin J Levy - W6LHI/G8LHI - @mahtin - https://github.com/mahtin
 """
