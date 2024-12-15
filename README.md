@@ -126,13 +126,49 @@ for line in sys.stdin:
         print('%-10s INVALID' % (line))
 ```
 
-The file `example1.py` on github is this code.
+The file `examples/python_example.py` is on github (and is based on this code).
+
+## Example code (in C)
+
+```c
+    char *callsign_regex;
+    regex_t re;
+    regmatch_t rm[1];
+
+    callsign_regex = "<<INSERT FROM ABOVE OR READ IN FROM FILE>>";
+
+    if (regcomp(&re, callsign_regex, REG_EXTENDED) != 0) {
+        // bail!
+    }
+
+    char line[1024+1];
+    while ((fgets(line, 1024, stdin)) != NULL) {
+    if (regexec(&re, line, N_RM, rm, 0) != 0) {
+        // bail!
+    }
+```
+
+The file `examples/clang-example.c` is on github and contains fully working code with full error checking ability.
+
+## Notes on ITU callsign Appendix 42
+
+According to the [ITU](https://en.wikipedia.org/wiki/ITU_prefix) Wikipedia page, the following is a key issue when building a regex.
+
+> With regard to the second and/or third letters in the prefixes in the list below,
+> if the country in question is allocated all callsigns with A to Z in that position,
+> then that country can also use call signs with the digits 0 to 9 in that position.
+> For example, the United States is assigned KA–KZ, and therefore can also use prefixes like K1 or K9.
+
+To clarify, the US is allocated the series `KAA - KAZ` `KBA - KBZ` ... `KZA - KZZ` and in that situation the normal regex would be `K[A-Z][A-Z]`; however, this text above allows `K[A-Z]{0-2}`.
+
+This means that when parsing the ITU information you can drop the trailing letters from the search in this situation.
+So far, I've not found this exact description of this rule within an ITU document; however, it's obvious that it is correct.
 
 ## Fetch new data files from the ITU (to freshen the version kept in the code)
 
 The official database is kept by the ITU. It is called the Table of International Call Sign Series (Appendix 42 to the RR).
 
-Hence, based on the page 
+Hence, based on the page
 [https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/glad.aspx](https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/glad.aspx)
 visit this specific page in a browser on your system
 [https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/call_sign_series.aspx](https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/call_sign_series.aspx)
