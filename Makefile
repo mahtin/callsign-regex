@@ -13,7 +13,7 @@ NAME_ = "callsign_regex"
 PACKAGE1 = "itu-appendix42"
 PACKAGE2 = "callsign_regex"
 
-all: CHANGELOG.md
+all: CHANGELOG.md examples
 	${FORCE}
 
 CHANGELOG.md: FORCE
@@ -79,6 +79,11 @@ upload-pypi: sdist bdist
 docs: all
 	sphinx-apidoc -Mfe -o docs . setup.py
 	sphinx-build -j auto -b html docs docs/_build/html
+
+#
+# Examples
+#
+examples: examples/clang-example examples/python-example.py
 
 clean-docs: all
 	rm -rf docs/*.rst docs/_build/
