@@ -1,5 +1,14 @@
 # Change Log
 
+ - 2024-12-16 12:11:13 -0400 [f8487ee](../../commit/f8487ee8d8e99505d08eea16868fbfc19f757e94) 0.6.0
+ - 2024-12-16 12:07:02 -0400 [d40aa84](../../commit/d40aa84c156cea313f93123716243ed444d7e5c2) handle one letter alpha and one letter numeric differently
+ - 2024-12-16 12:06:01 -0400 [e985f2a](../../commit/e985f2a46cd1c83e143456a3f4b714e019479b62) first pass a suffix handling - ie: /A /M /P etc
+ - 2024-12-16 12:05:17 -0400 [27c468d](../../commit/27c468d080b8728e55a9cca5c04b016944f7c520) updated regex string
+ - 2024-12-15 16:24:37 -0400 [1b42487](../../commit/1b42487a186b8f22921c87f8f7742594fbe6d41c) underscores in Python - argggg
+ - 2024-12-15 14:17:44 -0400 [8832119](../../commit/8832119c7c1fe7d912e7219f483deb32c7d71b93) clang example added - ITU clarification added
+ - 2024-12-15 14:16:12 -0400 [9b68b6b](../../commit/9b68b6b08f5e11c00379f613a98464d34cbe8179) examples folder added
+ - 2024-12-15 14:15:46 -0400 [84aa075](../../commit/84aa075cdd4b2d719229047c908075eb7c06f784) examples expanded - clang added - renamed to examples/ folder
+ - 2024-12-13 14:38:21 -0400 [ed498bf](../../commit/ed498bffbf796506a6dfcb3cc13d4bb191caf7ab) CHANGELOG.md
  - 2024-12-13 14:37:58 -0400 [a01f4fb](../../commit/a01f4fbba8454ba497d247856153ab36957d0204) 0.5.0
  - 2024-12-13 14:36:43 -0400 [3e44893](../../commit/3e44893efecb5fe9618603d225e5249aac937a45) handle Bermuda etc regex better (C6 etc), usage/arg processing, cache of regex for speedup, localized xlsx file, efficient processing
  - 2024-12-09 13:54:03 -0800 [48838a0](../../commit/48838a035534c6819a591a79dd5b7990f37a0a31) sdist bdist needed some cleanup plus CHANGELOG added
