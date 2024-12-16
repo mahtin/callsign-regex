@@ -247,7 +247,13 @@ class ItuAppendix42():
                 c = chr(ord(c) + 1)
             return s
 
-        one_letter = '[' + ''.join(sorted([v[0:1] for v in cls._forward if v[-10:] == '[A-Z][A-Z]'])) + ']'
+        one_letter_alpha = '[' + ''.join(sorted([v[0:1] for v in cls._forward if v[0].isalpha() and v[-10:] == '[A-Z][A-Z]'])) + ']'
+        one_letter_numeric = '[' + ''.join(sorted([v[0:1] for v in cls._forward if v[0].isnumeric() and v[-10:] == '[A-Z][A-Z]'])) + ']'
+
+        if len(one_letter_alpha) == 3:
+            one_letter_alpha = one_letter_alpha[1]
+        if len(one_letter_numeric) == 3:
+            one_letter_numeric = one_letter_numeric[1]
 
         two_letters = []
         twos = sorted([v[0:2] for v in cls._forward if v[-10:] != '[A-Z][A-Z]' and v[-5:] in ['[A-Z]', '[A-M]', '[N-Z]']])
@@ -299,44 +305,46 @@ class ItuAppendix42():
 
         # split these three patterns because we need to know the ones with numbers in the second position need a different pattern format
 
-        two_letters_with_numbers = []
-        two_letters_without_numbers = []
+        two_letters_has_numeric = []
+        two_letters_only_alpha = []
         for element in two_letters:
             a = element.split('[')
             if a[0] == '':
                 del a[0]
             b = [v for v in a[1] if v.isnumeric()]
             if len(b) > 0:
-                two_letters_with_numbers.append(element)
+                two_letters_has_numeric.append(element)
             else:
-                two_letters_without_numbers.append(element)
-
+                two_letters_only_alpha.append(element)
 
         # Only found 56789 to optimize - but wrote more generic code anyway
-        for ii in range(len(two_letters_with_numbers)):
+        for ii in range(len(two_letters_has_numeric)):
             swaps = [
                 ['56789', '5-9'],
             ]
             for swap in swaps:
-                two_letters_with_numbers[ii] = two_letters_with_numbers[ii].replace(swap[0], swap[1])
+                two_letters_has_numeric[ii] = two_letters_has_numeric[ii].replace(swap[0], swap[1])
 
-        for ii in range(len(two_letters_without_numbers)):
+        for ii in range(len(two_letters_only_alpha)):
             swaps = [
                 ['56789', '5-9'],
             ]
             for swap in swaps:
-                two_letters_without_numbers[ii] = two_letters_without_numbers[ii].replace(swap[0], swap[1])
+                two_letters_only_alpha[ii] = two_letters_only_alpha[ii].replace(swap[0], swap[1])
 
         # we combine these three patterns. we add the missing letters. We take care of the numbers carefully
 
-        prefix1_letters = [one_letter + '[A-Z]{0,2}'] + [v + '[A-Z]{0,1}' for v in two_letters_without_numbers] + three_letters
-        prefix2_letters = [v + '[A-Z]{0,1}' for v in two_letters_with_numbers] + three_letters
-        suffix1_regex = '[0-9][0-9A-Z]{0,3}[A-Z]'
-        suffix2_regex = '[0-9A-Z]{0,3}[A-Z]'
+        prefix1_letters = [one_letter_numeric + '[A-Z]{1,2}'] + \
+                          [one_letter_alpha + '[A-Z]{0,2}'] + \
+                          [v + '[A-Z]{0,1}' for v in two_letters_only_alpha] + \
+                          three_letters
+
+        prefix2_letters = [v + '[A-Z]{0,1}' for v in two_letters_has_numeric]
+
         cls._regex = '(' + \
-                        '(' + '|'.join(prefix1_letters) + ')(' + suffix1_regex + ')' + \
+                        '(' + '|'.join(prefix1_letters) + ')(' + '[0-9][0-9A-Z]{0,3}[A-Z]' + ')' + \
                      '|' + \
-                        '(' + '|'.join(prefix2_letters) + ')(' + suffix2_regex + ')' + \
+                        '(' + '|'.join(prefix2_letters) + ')(' + '[0-9A-Z]{0,3}[A-Z]' + ')' + \
                      ')'
 
     @classmethod
