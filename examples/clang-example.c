@@ -14,7 +14,7 @@
 // This example assumes that you have run the Python code to create a regex string (which places the regex in the ~/.cache area)
 //
 
-char *read_regex_file() {
+static char *read_regex_file() {
     char filename[1024+1];
     FILE *fp;
     static char regex_line[1024+1];
@@ -32,15 +32,26 @@ char *read_regex_file() {
     return regex_line;
 }
 
-#define N_RM 1
+static int match_valid_suffix(char *suffix) {
+    static const char *valid_suffix_list[] = {"/A", "/M", "/MM", "/P", "/QRP", "/QRPP"};
 
-void doit(regex_t *re, FILE *fp) {
+    for (int ii=0; ii<(sizeof(valid_suffix_list)/sizeof(char *)); ii++) {
+        if (strcmp(suffix, valid_suffix_list[ii]) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+#define N_RM 3
+
+static void doit(regex_t *re, FILE *fp) {
     char line[1024+1];
 
     while ((fgets(line, sizeof(line)-1, fp)) != NULL) {
         regmatch_t rm[N_RM];
 
-        line[strlen(line)-1] = '\0';	// remove newline
+        line[strlen(line)-1] = '\0'; // remove newline
 
         // do we match - bail out quickly if we don't
         if (regexec(re, line, N_RM, rm, 0) != 0) {
@@ -63,11 +74,19 @@ void doit(regex_t *re, FILE *fp) {
         }
 
         if (rm[0].rm_so > 0 && line[rm[0].rm_so - 1] == '/' && strlen(line + rm[0].rm_so) == (int)(rm[0].rm_eo - rm[0].rm_so)) {
-            printf("%s -> %.*s EXACT WITH PREFIX\n", line, (int)(rm[0].rm_eo - rm[0].rm_so), line + rm[0].rm_so);
+            printf("%s -> %.*s EXACT WITH PREFIX (%d,%d) (%d,%d) (%d,%d)\n", line, (int)(rm[0].rm_eo - rm[0].rm_so), line + rm[0].rm_so,
+                (int)rm[0].rm_so, (int)rm[0].rm_eo,
+                (int)rm[1].rm_so, (int)rm[1].rm_eo,
+                (int)rm[2].rm_so, (int)rm[2].rm_eo
+            );
             continue;
         }
 
         if (rm[0].rm_so == 0 && line[rm[0].rm_eo] == '/') {
+            if (match_valid_suffix(&line[rm[0].rm_eo])) {
+                printf("%s -> %.*s\n", line, (int)(rm[0].rm_eo - rm[0].rm_so), line + rm[0].rm_so);
+                continue;
+            }
             printf("%s -> %.*s EXACT WITH SUFFIX\n", line, (int)(rm[0].rm_eo - rm[0].rm_so), line + rm[0].rm_so);
             continue;
         }
